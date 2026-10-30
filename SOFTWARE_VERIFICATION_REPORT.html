@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crediable Software Customization - Verification & Testing Report</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --brand: #0284c7;
+            --brand-dark: #0b1220;
+            --brand-light: #f0f9ff;
+            --success: #16a34a;
+            --success-light: #f0fdf4;
+            --warning: #d97706;
+            --warning-light: #fffbeb;
+            --danger: #dc2626;
+            --danger-light: #fef2f2;
+            --border: #e2e8f0;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: var(--text-dark);
+            line-height: 1.6;
+            padding: 30px 20px;
+        }
+
+        .container {
+            max-width: 1050px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+            padding: 40px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 25px;
+            margin-bottom: 30px;
+        }
+
+        .title-block h1 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--brand-dark);
+        }
+
+        .title-block p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        .action-btns {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            border: none;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--brand), #0369a1);
+            color: white;
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(2, 132, 199, 0.35);
+        }
+
+        .section-card {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 25px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .sec-num {
+            background: var(--brand);
+            color: white;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-weight: 800;
+            font-size: 15px;
+        }
+
+        .sec-title {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--brand-dark);
+        }
+
+        .item-box {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 18px;
+            margin-bottom: 16px;
+        }
+
+        .item-box:last-child { margin-bottom: 0; }
+
+        .item-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .item-title {
+            font-weight: 700;
+            font-size: 15px;
+            color: var(--text-dark);
+        }
+
+        .badge {
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .badge-success { background: var(--success-light); color: var(--success); border: 1px solid #86efac; }
+        .badge-warning { background: var(--warning-light); color: var(--warning); border: 1px solid #fde68a; }
+
+        .desc-text {
+            font-size: 13.5px;
+            color: #334155;
+            margin-bottom: 10px;
+        }
+
+        .testing-guide {
+            background: #ffffff;
+            border-left: 3px solid var(--brand);
+            padding: 10px 14px;
+            border-radius: 0 6px 6px 0;
+            font-size: 13px;
+        }
+
+        .testing-guide strong {
+            color: var(--brand);
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .testing-guide ol {
+            padding-left: 18px;
+            margin: 0;
+        }
+
+        .testing-guide li {
+            margin-bottom: 4px;
+        }
+
+        .testing-guide code {
+            background: #e2e8f0;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #0f172a;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            padding: 20px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .stat-card.complete {
+            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+            border: 1px solid #86efac;
+            color: #166534;
+        }
+
+        .stat-card.pending {
+            background: linear-gradient(135deg, #fffbeb, #fef3c7);
+            border: 1px solid #fde68a;
+            color: #92400e;
+        }
+
+        .stat-icon { font-size: 28px; }
+        .stat-num { font-size: 24px; font-weight: 800; font-family: 'Plus Jakarta Sans', sans-serif; }
+        .stat-lbl { font-size: 13px; font-weight: 600; }
+
+        @media print {
+            body { background: #fff; padding: 0; }
+            .container { border: none; box-shadow: none; padding: 0; }
+            .action-btns { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <div class="title-block">
+            <h1>Crediable Software Customization Report</h1>
+            <p>Verification, Feature Explanation & Step-by-Step Testing Guide</p>
+        </div>
+        <div class="action-btns">
+            <button class="btn btn-primary" onclick="window.print()">
+                <i class="fas fa-print"></i> Print / Save as PDF
+            </button>
+        </div>
+    </div>
+
+    <!-- Summary KPIs -->
+    <div class="summary-grid">
+        <div class="stat-card complete">
+            <i class="fas fa-check-circle stat-icon"></i>
+            <div>
+                <div class="stat-num">17 Tasks</div>
+                <div class="stat-lbl">Fully Complete & Tested</div>
+            </div>
+        </div>
+        <div class="stat-card pending">
+            <i class="fas fa-clock stat-icon"></i>
+            <div>
+                <div class="stat-num">3 Tasks</div>
+                <div class="stat-lbl">Partial / In Progress</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 1 -->
+    <div class="section-card">
+        <div class="section-header">
+            <div class="sec-num">1</div>
+            <div class="sec-title">Original Billing Software Customization</div>
+        </div>
+
+        <div class="item-box">
+            <div class="item-head">
+                <span class="item-title">1.1 Every product will belong to a category</span>
+                <span class="badge badge-success"><i class="fas fa-check"></i> Complete</span>
+            </div>
+            <p class="desc-text"><strong>Kaise kaam karta hai:</strong> Har product Category (e.g. Hardware, Electronics, IT Services) se link hota hai. Product create karte waqt category choose karna mandatory hai.</p>
+            <div class="testing-guide">
+                <strong>Testing Guide:</strong>
+                <ol>
+                    <li>Open karein: <code>http://localhost/Crediable/categories-list.php</code> ➔ Nayi category create karein.</li>
+                    <li>Open karein: <code>http://localhost/Crediable/product-list.php</code> ➔ Add Product par click karein aur category dropdown check karein.</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="item-box">
+            <div class="item-head">
+                <span class="item-title">1.2 Change Creditor/Debitor to Supplier & Customer</span>
+                <span class="badge badge-success"><i class="fas fa-check"></i> Complete</span>
+            </div>
+            <p class="desc-text"><strong>Kaise kaam karta hai:</strong> Purani accounting terminology (Creditor/Debitor) ko replace karke simple "Customer" aur "Supplier" kiya gaya hai.</p>
+            <div class="testing-guide">
+                <strong>Testing Guide:</strong>
+                <ol>
+                    <li>Sidebar aur pages me dekhein: <code>http://localhost/Crediable/customers.php</code> aur <code>suppliers.php</code>.</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="item-box">
+            <div class="item-head">
+                <span class="item-title">1.3 Two types of Invoice: Normal + Thermal</span>
+                <span class="badge badge-success"><i class="fas fa-check"></i> Complete</span>
+            </div>
+            <p class="desc-text"><strong>Kaise kaam karta hai:</strong> Standard A4/A5 tax invoice printing aur counter POS thermal printer ke liye 80mm roll receipt dono support karta hai.</p>
+            <div class="testing-guide">
+                <strong>Testing Guide:</strong>
+                <ol>
+                    <li>Normal Invoice: <code>http://localhost/Crediable/sale_invoice.php?id=1</code></li>
+                    <li>Thermal 80mm POS Slip: <code>http://localhost/Crediable/print_thermal_invoice.php?id=1</code></li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="item-box">
+            <div class="item-head">
+                <span class="item-title">1.4 Invoice / Proforma / Quotation Redesigned</span>
+                <span class="badge badge-success"><i class="fas fa-check"></i> Complete</span>
+            </div>
+            <p class="desc-text"><strong>Kaise kaam karta hai:</strong> Premium typography, clean table structure, GST split aur bank payment details ke saath modern layout.</p>
+            <div class="testing-guide">
+                <strong>Testing Guide:</strong>
+                <ol>
+                    <li>Quotation: <code>http://localhost/Crediable/customer_quotation_view.php?id=1</code></li>
+                    <li>Service Invoice: <code>http://localhost/Crediable/service_invoice_print.php?id=1</code></li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="item-box">
+            <div class="item-head">
+                <span class="item-title">1.5 Service Invoice Auto Incrementing Number</span>
+                <span class="badge badge-success"><i class="fas fa-check"></i> Complete</span>
+            </div>
+            <p class="desc-text"><strong>Kaise kaam karta hai:</strong> Service bill create karte waqt automatic +1 sequential number generate hota hai (jaise <code>SINV-2026-0001</code>).</p>
+            <div class="testing-guide">
+                <strong>Testing Guide:</strong>
+                <ol>
+                    <li>Open karein: <code>http://localhost/Crediable/service_invoice.php</code> ➔ Invoice Number input automatically generated milega.</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="item-box">
+            <div class="item-head">
+                <span class="item-title">1.6 Proper Inventory Management</span>
+                <span class="badge badge-success"><i class="fas fa-check"></i> Complete</span>
+            </div>
+            <p class="desc-text"><strong>Kaise kaam karta hai:</strong> Purchase se stock badhta hai, Sales se deduct hota hai, aur threshold reach hone par low stock alerts trigger hote hain.</p>
+            <div class="testing-guide">
+                <strong>Testing Guide:</strong>
+                <ol>
+                    <li>Stock Status: <code>http://localhost/Crediable/manage-stock.php</code></li>
+                    <li>Low Stock Warning: <code>http://localhost/Crediable/low-stock.php</code></li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="item-box">
+            <div class="item-head">
+                <span class="item-title">1.7 Delivery Challan with Printable Format</span>
+                <span class="badge badge-success"><i class="fas fa-check"></i> Complete</span>
+            </div>
+            <p class="desc-text"><strong>Kaise kaam karta hai:</strong> Goods dispatch ke liye dispatch memo / delivery challan generate aur print hota hai.</p>
+            <div class="testing-guide">
+                <strong>Testing Guide:</strong>
+                <ol>
+                    <li>Open karein: <code>http://localhost/Crediable/delivery_challan.php</code></li>
+                    <li>Print format dekhein: <code>http://localhost/Crediable/print_delivery_challan.php?id=1</code></li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="item-box">
+            <div class="item-head">
+                <span class="item-title">1.8 Payment In & Payment Out (Receipt Print)</span>
+                <span class="badge badge-success"><i class="fas fa-check"></i> Complete</span>
+            </div>
+            <p class="desc-text"><strong>Kaise kaam karta hai:</strong> Vyapar style payment settlement aur dono ke liye formal printable receipt / voucher.</p>
+            <div class="testing-guide">
+                <strong>Testing Guide:</strong>
+                <ol>
+                    <li>Payment In Receipt: <code>http://localhost/Crediable/print_receipt.php?id=1</code></li>
+                    <li>Payment History: <code>http://localhost/Crediable/payment_history.php</code></li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="item-box">
+            <div class="item-head">
+                <span class="item-title">1.9 CGST 9.0% + SGST 9.0% Breakdown</span>
+                <span class="badge badge-success"><i class="fas fa-check"></i> Complete</span>
+            </div>
+            <p class="desc-text"><strong>Kaise kaam karta hai:</strong> 18% standard GST tax automatically CGST 9% aur SGST 9% me calculate aur display hota hai.</p>
+            <div class="testing-guide">
+                <strong>Testing Guide:</strong>
+                <ol>
+                    <li>Open karein: <code>http://localhost/Crediable/sales.php</code> ya <code>sale_invoice.php</code> ➔ GST split check karein.</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 2 -->
+    <div class="section-card">
+        <div class="section-header">
+            <div class="sec-num">2</div>
+            <div class="sec-title">TDS – Invoice & Tax System</div>
+        </div>
+
+        <div class="item-box">
+            <div class="item-head">
+                <span class="item-title">2.1 TDS Rate, Gross, Deduction & Net Calculation</span>
+                <span class="badge badge-success"><i class="fas fa-check"></i> Complete</span>
+            </div>
+            <p class="desc-text"><strong>Kaise kaam karta hai:</strong> Sales create karte waqt TDS % select hota hai. Gross amount me se TDS amount minus hokar Net Payable create hota hai.</p>
+            <div class="testing-guide">
+                <strong>Testing Guide:</strong>
+                <ol>
+                    <li>Open karein: <code>http://localhost/Crediable/sales.php</code> ➔ TDS Deduction dropdown me rate select karein.</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="item-box">
+            <div class="item-head">
+                <span class="item-title">2.2 Separate TDS Display on Invoice Print</span>
+                <span class="badge badge-success"><i class="fas fa-check"></i> Complete</span>
+            </div>
+            <p class="desc-text"><strong>Kaise kaam karta hai:</strong> Invoice print me Gross Amount, Less TDS Deduction, aur Net Payable alag-alag highlighted rows me dikhte hain.</p>
+            <div class="testing-guide">
+                <strong>Testing Guide:</strong>
+                <ol>
+                    <li>Open karein: <code>http://localhost/Crediable/sale_invoice.php?id=1</code> ➔ Totals section me red TDS line aur blue Net row dekhein.</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="item-box">
+            <div class="item-head">
+                <span class="item-title">2.3 TDS Receivable & TDS Payable Reports</span>
+                <span class="badge badge-success"><i class="fas fa-check"></i> Complete</span>
+            </div>
+            <p class="desc-text"><strong>Kaise kaam karta hai:</strong> Tax reports ke andar sales par kata TDS (Receivable) aur purchases/expenses par kata TDS (Payable) alag-alag report hota hai.</p>
+            <div class="testing-guide">
+                <strong>Testing Guide:</strong>
+                <ol>
+                    <li>TDS Receivable: <code>http://localhost/Crediable/reports.php?cat=tax&type=tds_rec</code></li>
+                    <li>TDS Payable: <code>http://localhost/Crediable/reports.php?cat=tax&type=tds_pay</code></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 3 -->
+    <div class="section-card">
+        <div class="section-header">
+            <div class="sec-num">3</div>
+            <div class="sec-title">Hardware & QR Code Features</div>
+        </div>
+
+        <div class="item-box">
+            <div class="item-head">
+                <span class="item-title">3.1 Barcode Label Printing & Gun Scanning</span>
+                <span class="badge badge-success"><i class="fas fa-check"></i> Complete</span>
+            </div>
+            <p class="desc-text"><strong>Kaise kaam karta hai:</strong> Products ke barcode sticker print hote hain aur POS billing par barcode scanner gun se scan karne par product instant add hota hai.</p>
+            <div class="testing-guide">
+                <strong>Testing Guide:</strong>
+                <ol>
+                    <li>Print Barcode: <code>http://localhost/Crediable/print_barcode.php</code></li>
+                    <li>Scan POS: <code>http://localhost/Crediable/sales.php</code> ➔ Barcode scan input box me scan karein.</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="item-box">
+            <div class="item-head">
+                <span class="item-title">3.2 Dynamic UPI QR Code on Invoices</span>
+                <span class="badge badge-success"><i class="fas fa-check"></i> Complete</span>
+            </div>
+            <p class="desc-text"><strong>Kaise kaam karta hai:</strong> Har invoice ke total amount ke mutabik dynamic UPI QR generate hota hai jise GPay/PhonePe se scan karke direct pay kar sakte hain.</p>
+            <div class="testing-guide">
+                <strong>Testing Guide:</strong>
+                <ol>
+                    <li>Company UPI Set karein: <code>http://localhost/Crediable/company-details.php</code></li>
+                    <li>Invoice View: <code>http://localhost/Crediable/sale_invoice.php?id=1</code> ➔ Scan & Pay QR code scan karein.</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 4 -->
+    <div class="section-card">
+        <div class="section-header">
+            <div class="sec-num">4</div>
+            <div class="sec-title">Reports Hub (Transactions, Tax, GSTR & Banking)</div>
+        </div>
+
+        <div class="item-box">
+            <div class="item-head">
+                <span class="item-title">4.1 Centralized Reports Hub & Statements</span>
+                <span class="badge badge-success"><i class="fas fa-check"></i> Complete</span>
+            </div>
+            <p class="desc-text"><strong>Kaise kaam karta hai:</strong> Ek hi dashboard se Sale Report, Purchase Report, Daybook, P&L, Customer Ledger, Stock Summary aur GSTR 1/2/3 available hain.</p>
+            <div class="testing-guide">
+                <strong>Testing Guide:</strong>
+                <ol>
+                    <li>Reports Hub: <code>http://localhost/Crediable/reports.php</code></li>
+                    <li>Party Statement / Ledger: <code>http://localhost/Crediable/customer_ledger.php</code></li>
+                    <li>GST Reports: <code>http://localhost/Crediable/gstr1.php</code>, <code>gstr2.php</code>, <code>gstr3.php</code></li>
+                    <li>Bank Ledger: <code>http://localhost/Crediable/bank_ledger_management.php</code></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 5: PENDING TASKS -->
+    <div class="section-card" style="border-left: 4px solid var(--warning);">
+        <div class="section-header">
+            <div class="sec-num" style="background: var(--warning);">5</div>
+            <div class="sec-title">Pending / In-Progress Tasks (Needs Implementation)</div>
+        </div>
+
+        <div class="item-box">
+            <div class="item-head">
+                <span class="item-title">5.1 Item Master Bulk Excel/CSV Import & Export</span>
+                <span class="badge badge-warning"><i class="fas fa-clock"></i> Pending Implementation</span>
+            </div>
+            <p class="desc-text"><strong>Details:</strong> Product list page par Excel/CSV template download karke hazaron products ko 1-click me import aur bulk export karne ka button add karna hai.</p>
+        </div>
+
+        <div class="item-box">
+            <div class="item-head">
+                <span class="item-title">5.2 Banking Transactions Direct Excel/CSV Export</span>
+                <span class="badge badge-warning"><i class="fas fa-clock"></i> Pending Implementation</span>
+            </div>
+            <p class="desc-text"><strong>Details:</strong> Bank Ledger page par filtered bank statements ko Excel (.xlsx) aur CSV format me direct download karne ka button link karna hai.</p>
+        </div>
+
+        <div class="item-box">
+            <div class="item-head">
+                <span class="item-title">5.3 Item Issued for Rent (Explicit Rental Tag)</span>
+                <span class="badge badge-warning"><i class="fas fa-clock"></i> Pending Implementation</span>
+            </div>
+            <p class="desc-text"><strong>Details:</strong> Billing screen par dedicated "Issue for Rent" toggle/checkbox provide karna jisse bill create hone par quantity stock se deduct na ho.</p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
